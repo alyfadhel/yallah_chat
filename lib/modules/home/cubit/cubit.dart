@@ -114,13 +114,13 @@ class HomeCubit extends Cubit<HomeStates>
 
   /////////////////////////////////////////////////////////////////
 
-  File? image;
+  File? profileImage;
   final picker = ImagePicker();
 
-  Future getImage() async {
+  Future getIProfileImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      profileImage = File(pickedFile.path);
       emit(SocialProfileImagePickedSuccessState());
     } else {
       print('No image selected.');
@@ -130,11 +130,11 @@ class HomeCubit extends Cubit<HomeStates>
 
   ////////////////////////////////////////////////////////////////
 
-  File? cover;
-  Future getCover() async {
+  File? coverImage;
+  Future getCoverImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      cover = File(pickedFile.path);
+      coverImage = File(pickedFile.path);
       emit(SocialCoverImagePickedSuccessState());
     } else {
       print('No image selected.');

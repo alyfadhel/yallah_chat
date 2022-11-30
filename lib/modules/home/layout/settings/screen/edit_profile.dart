@@ -19,8 +19,8 @@ class EditProfileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var model = HomeCubit.get(context).userModel!;
-        var profileImage = HomeCubit.get(context).image;
-        var coverImage = HomeCubit.get(context).cover;
+        var profileImage = HomeCubit.get(context).profileImage;
+        var coverImage = HomeCubit.get(context).coverImage;
         var cubit = HomeCubit.get(context);
         cubit.nameController.text = model.name;
         cubit.bioController.text = model.bio;
@@ -75,7 +75,7 @@ class EditProfileScreen extends StatelessWidget {
                             IconButton(
                               onPressed: ()
                               {
-                                cubit.getCover();
+                                cubit.getCoverImage();
                               },
                               icon: const CircleAvatar(
                                 radius: AppSize.s20,
@@ -104,7 +104,7 @@ class EditProfileScreen extends StatelessWidget {
                           IconButton(
                             onPressed: ()
                             {
-                              cubit.getImage();
+                              cubit.getIProfileImage();
                             },
                             icon: const CircleAvatar(
                               radius: AppSize.s20,
