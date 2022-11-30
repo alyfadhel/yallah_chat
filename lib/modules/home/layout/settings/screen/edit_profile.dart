@@ -19,6 +19,8 @@ class EditProfileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var model = HomeCubit.get(context).userModel!;
+        var profileImage = HomeCubit.get(context).image;
+        var coverImage = HomeCubit.get(context).cover;
         var cubit = HomeCubit.get(context);
         cubit.nameController.text = model.name;
         cubit.bioController.text = model.bio;
@@ -62,16 +64,19 @@ class EditProfileScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                   AppSize.s5,
                                 ),
-                                image: const DecorationImage(
-                                  image: NetworkImage(
-                                    'https://img.freepik.com/premium-photo/young-beautiful-cute-sweet-lovely-smiling-woman-with-hold-bouquet-white-fresh-flowers-white-wall-background_158595-8178.jpg?w=900',
-                                  ),
+                                image:  DecorationImage(
+                                  image: coverImage == null ?  NetworkImage(
+                                    model.cover,
+                                  ) : FileImage(coverImage) as ImageProvider,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                             IconButton(
-                              onPressed: (){},
+                              onPressed: ()
+                              {
+                                cubit.getCover();
+                              },
                               icon: const CircleAvatar(
                                 radius: AppSize.s20,
                                 child:  Icon(
@@ -89,15 +94,18 @@ class EditProfileScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: AppSize.s65,
                             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: AppSize.s60,
-                              backgroundImage: NetworkImage(
-                                  'https://img.freepik.com/free-photo/happy-young-woman-enjoying-vacation_158595-4298.jpg?w=740&t=st=1669649577~exp=1669650177~hmac=4801a6bc4b4eb5f3a1c41977500d06b07fd65f5afe76c34d8eaaabfe6aa11b69'
-                              ),
+                              backgroundImage: profileImage == null ? NetworkImage(
+                                  model.image
+                              ): FileImage(profileImage) as ImageProvider,
                             ),
                           ),
                           IconButton(
-                            onPressed: (){},
+                            onPressed: ()
+                            {
+                              cubit.getImage();
+                            },
                             icon: const CircleAvatar(
                               radius: AppSize.s20,
                               child:  Icon(

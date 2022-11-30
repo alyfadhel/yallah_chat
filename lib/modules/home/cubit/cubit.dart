@@ -112,6 +112,35 @@ class HomeCubit extends Cubit<HomeStates>
 
   }
 
+  /////////////////////////////////////////////////////////////////
+
+  File? image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+      emit(SocialProfileImagePickedSuccessState());
+    } else {
+      print('No image selected.');
+      emit(SocialProfileImagePickedErrorState());
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////
+
+  File? cover;
+  Future getCover() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      cover = File(pickedFile.path);
+      emit(SocialCoverImagePickedSuccessState());
+    } else {
+      print('No image selected.');
+      emit(SocialCoverImagePickedErrorState());
+    }
+  }
 
 
 
