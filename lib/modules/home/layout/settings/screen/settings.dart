@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/resources/values_manager.dart';
+import 'package:yallah_chat/modules/home/layout/settings/screen/edit_profile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -65,7 +66,11 @@ class SettingsScreen extends StatelessWidget {
                 width: AppSize.s10,
               ),
               OutlinedButton(
-                onPressed: (){},
+                onPressed: ()
+                {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const EditProfileScreen(),));
+                },
                 child: const Icon(
                   IconBroken.Edit,
                 ),
