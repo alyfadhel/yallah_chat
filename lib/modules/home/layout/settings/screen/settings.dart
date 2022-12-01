@@ -37,9 +37,9 @@ class SettingsScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(
                               AppSize.s5,
                             ),
-                            image: const DecorationImage(
+                            image: DecorationImage(
                               image: NetworkImage(
-                                'https://img.freepik.com/premium-photo/young-beautiful-cute-sweet-lovely-smiling-woman-with-hold-bouquet-white-fresh-flowers-white-wall-background_158595-8178.jpg?w=900',
+                                model.cover,
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -49,10 +49,10 @@ class SettingsScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: AppSize.s65,
                         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                        child: const CircleAvatar(
+                        child:  CircleAvatar(
                           radius: AppSize.s60,
                           backgroundImage: NetworkImage(
-                              'https://img.freepik.com/free-photo/happy-young-woman-enjoying-vacation_158595-4298.jpg?w=740&t=st=1669649577~exp=1669650177~hmac=4801a6bc4b4eb5f3a1c41977500d06b07fd65f5afe76c34d8eaaabfe6aa11b69'
+                              model.image
                           ),
                         ),
                       ),
