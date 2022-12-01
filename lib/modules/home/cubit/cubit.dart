@@ -195,29 +195,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   //////////////////////////////////////////////////////////////
 
-//   void updateUserImages({
-//     required String name,
-//     required String phone,
-//     required String bio,
-// })
-//   {
-//     emit(SocialUserUpdateLoadingState());
-//     if(coverImage != null)
-//     {
-//       uploadCoverImage();
-//     } else if(profileImage != null)
-//     {
-//       uploadProfileImage();
-//     }else if(coverImage != null && profileImage != null)
-//     {} else{
-//       updateUser(
-//         name: name,
-//         phone: phone,
-//         bio: bio,
-//       );
-//     }
-//
-//   }
 
   void updateUser({
     required String name,
