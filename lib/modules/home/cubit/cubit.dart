@@ -174,7 +174,8 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(SocialUserUpdateLoadingState());
     FirebaseStorage.instance
         .ref()
-        .child('users/${Uri.file(coverImage!.path).pathSegments.last}')
+        .child('users/${Uri.file(coverImage!.path)
+        .pathSegments.last}')
         .putFile(coverImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
@@ -223,4 +224,11 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(SocialUserUpdateErrorState());
     });
   }
+
+  ///////////////////////////////////////////////////////////////
+
+
+
+
+
 }
