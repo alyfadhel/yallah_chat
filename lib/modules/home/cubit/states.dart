@@ -4,16 +4,24 @@ class InitialHomeState extends HomeStates{}
 
 class GetHomeLoadingState extends HomeStates{}
 
-class GetHomeSuccessState extends HomeStates
-{
-
-}
+class GetHomeSuccessState extends HomeStates {}
 
 class GetHomeErrorState extends HomeStates
 {
   final String error;
 
   GetHomeErrorState(this.error);
+}
+
+class GetPostsLoadingState extends HomeStates{}
+
+class GetPostsSuccessState extends HomeStates {}
+
+class GetPostsErrorState extends HomeStates
+{
+  final String error;
+
+  GetPostsErrorState(this.error);
 }
 
 class ChangeBottomNav extends HomeStates{}
@@ -39,3 +47,18 @@ class SocialUploadCoverImageErrorState extends HomeStates{}
 class SocialUserUpdateLoadingState extends HomeStates{}
 
 class SocialUserUpdateErrorState extends HomeStates{}
+
+//posts
+
+class SocialCreatePostLoadingState extends HomeStates{}
+
+class SocialCreatePostSuccessState extends HomeStates{}
+
+class SocialCreatePostErrorState extends HomeStates{}
+
+class SocialPostImagePickedSuccessState extends HomeStates{}
+
+class SocialPostImagePickedErrorState extends HomeStates{}
+
+class SocialRemovePostImage extends HomeStates{}
+

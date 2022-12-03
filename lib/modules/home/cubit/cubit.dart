@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/utils/constance/constance.dart';
+import 'package:yallah_chat/model/post_model.dart';
 import 'package:yallah_chat/model/yalla_chat_model.dart';
 import 'package:yallah_chat/modules/home/cubit/states.dart';
 import 'package:yallah_chat/modules/home/layout/chats/chats.dart';
@@ -174,8 +175,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(SocialUserUpdateLoadingState());
     FirebaseStorage.instance
         .ref()
-        .child('users/${Uri.file(coverImage!.path)
-        .pathSegments.last}')
+        .child('users/${Uri.file(coverImage!.path).pathSegments.last}')
         .putFile(coverImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
@@ -185,7 +185,7 @@ class HomeCubit extends Cubit<HomeStates> {
           bio: bio,
           cover: value,
         );
-       // emit(SocialUploadCoverImageSuccessState());
+        // emit(SocialUploadCoverImageSuccessState());
       }).catchError((error) {
         emit(SocialUploadCoverImageErrorState());
       });
@@ -195,7 +195,6 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   //////////////////////////////////////////////////////////////
-
 
   void updateUser({
     required String name,
@@ -227,8 +226,99 @@ class HomeCubit extends Cubit<HomeStates> {
 
   ///////////////////////////////////////////////////////////////
 
+  File? postImage;
+
+  Future getPostImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      postImage = File(pickedFile.path);
+      emit(SocialPostImagePickedSuccessState());
+    } else {
+      print('No image selected.');
+      emit(SocialPostImagePickedErrorState());
+    }
+  }
+
+  void uploadPostImage({
+    required String dateTime,
+    required String text,
+  }) {
+    emit(SocialCreatePostLoadingState());
+    FirebaseStorage.instance
+        .ref()
+        .child('posts/${Uri.file(postImage!.path).pathSegments.last}')
+        .putFile(postImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        createPost(
+          dateTime: dateTime,
+          text: text,
+          postImage: value,
+        );
+      }).catchError((error) {
+        emit(SocialCreatePostErrorState());
+      });
+    }).catchError((error) {
+      emit(SocialCreatePostErrorState());
+    });
+  }
 
 
+  var textController = TextEditingController();
+  var postImageController = TextEditingController();
 
+  void createPost({
+    required String dateTime,
+    required String text,
+    String? postImage,
+  }) {
+    emit(SocialCreatePostLoadingState());
+    PostModel model = PostModel(
+      name: userModel!.name,
+      uId: userModel!.uId,
+      image: userModel!.image,
+      dateTime: dateTime,
+      text: text,
+      postImage: postImage ?? '',
+    );
+    FirebaseFirestore.instance
+        .collection('posts')
+        .add(model.topMap())
+        .then((value) {
+          textController.clear();
+          postImageController.clear();
+      getPosts();
+      //emit(SocialCreatePostSuccessState());
+    })
+        .catchError((error) {
+      emit(SocialCreatePostErrorState());
+    });
+  }
+
+
+  void removePostImage()
+  {
+    postImage = null;
+    emit(SocialRemovePostImage());
+  }
+
+  List<PostModel>post = [];
+  void getPosts()
+  {
+    post = [];
+    emit(GetPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+    .get().then((value)
+    {
+      value.docs.forEach((element) {
+        post.add(PostModel.fromJson(element.data()));
+      });
+      emit(GetPostsSuccessState());
+    }).catchError((error)
+    {
+      emit(GetPostsErrorState(error.toString()));
+    });
+  }
 
 }
