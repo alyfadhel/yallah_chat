@@ -263,9 +263,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-
   var textController = TextEditingController();
-  var postImageController = TextEditingController();
 
   void createPost({
     required String dateTime,
@@ -285,40 +283,31 @@ class HomeCubit extends Cubit<HomeStates> {
         .collection('posts')
         .add(model.topMap())
         .then((value) {
-          textController.clear();
-          postImageController.clear();
+      textController.clear();
       getPosts();
       //emit(SocialCreatePostSuccessState());
-    })
-        .catchError((error) {
+    }).catchError((error) {
       emit(SocialCreatePostErrorState());
     });
   }
 
-
-  void removePostImage()
-  {
+  void removePostImage() {
     postImage = null;
     emit(SocialRemovePostImage());
   }
 
-  List<PostModel>post = [];
-  void getPosts()
-  {
+  List<PostModel> post = [];
+
+  void getPosts() {
     post = [];
     emit(GetPostsLoadingState());
-    FirebaseFirestore.instance
-        .collection('posts')
-    .get().then((value)
-    {
+    FirebaseFirestore.instance.collection('posts').get().then((value) {
       value.docs.forEach((element) {
         post.add(PostModel.fromJson(element.data()));
       });
       emit(GetPostsSuccessState());
-    }).catchError((error)
-    {
+    }).catchError((error) {
       emit(GetPostsErrorState(error.toString()));
     });
   }
-
 }
