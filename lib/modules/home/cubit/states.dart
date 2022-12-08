@@ -24,6 +24,25 @@ class GetPostsErrorState extends HomeStates
   GetPostsErrorState(this.error);
 }
 
+
+class GetLikePostsSuccessState extends HomeStates {}
+
+class GetLikePostsErrorState extends HomeStates
+{
+  final String error;
+
+  GetLikePostsErrorState(this.error);
+}
+
+class GetNumberLikePostsSuccessState extends HomeStates {}
+
+class GetNumberLikePostsErrorState extends HomeStates
+{
+  final String error;
+
+  GetNumberLikePostsErrorState(this.error);
+}
+
 class ChangeBottomNav extends HomeStates{}
 
 class SocialNewPostState extends HomeStates{}
@@ -59,6 +78,10 @@ class SocialCreatePostErrorState extends HomeStates{}
 class SocialPostImagePickedSuccessState extends HomeStates{}
 
 class SocialPostImagePickedErrorState extends HomeStates{}
+
+class SocialUploadPostImageSuccessState extends HomeStates{}
+
+class SocialUploadPostImageErrorState extends HomeStates{}
 
 class SocialRemovePostImage extends HomeStates{}
 

@@ -85,7 +85,8 @@ class NewPostScreen extends StatelessWidget {
                         controller: cubit.textController,
                         decoration: const InputDecoration(
                             hintText: 'What is on your mind....',
-                            border: InputBorder.none),
+                            border: InputBorder.none,
+                        ),
                       ),
                     ),
                     const SizedBox(

@@ -57,7 +57,7 @@ class FeedsScreen extends StatelessWidget {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => buildPostItem(cubit.post[index],context),
+                    itemBuilder: (context, index) => buildPostItem(cubit.post[index],context,index),
                     separatorBuilder: (context, index) => const SizedBox(
                       height: AppSize.s10,
                     ),
@@ -77,7 +77,7 @@ class FeedsScreen extends StatelessWidget {
     );
   }
 }
-Widget buildPostItem(PostModel model,context)=>Card(
+Widget buildPostItem(PostModel model,context,index)=>Card(
   clipBehavior: Clip.antiAliasWithSaveLayer,
   margin: const EdgeInsets.symmetric(horizontal: AppSize.s8),
   elevation: AppSize.s5,
@@ -342,7 +342,10 @@ Widget buildPostItem(PostModel model,context)=>Card(
                   ),
                 ],
               ),
-              onTap: (){},
+              onTap: ()
+              {
+                HomeCubit.get(context).likePost(HomeCubit.get(context).postId[index]);
+              },
             ),
           ],
         ),

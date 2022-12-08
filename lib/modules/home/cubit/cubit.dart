@@ -243,7 +243,6 @@ class HomeCubit extends Cubit<HomeStates> {
     required String dateTime,
     required String text,
   }) {
-    emit(SocialCreatePostLoadingState());
     FirebaseStorage.instance
         .ref()
         .child('posts/${Uri.file(postImage!.path).pathSegments.last}')
@@ -255,11 +254,12 @@ class HomeCubit extends Cubit<HomeStates> {
           text: text,
           postImage: value,
         );
+        removePostImage();
       }).catchError((error) {
-        emit(SocialCreatePostErrorState());
+        emit(SocialUploadPostImageErrorState());
       });
     }).catchError((error) {
-      emit(SocialCreatePostErrorState());
+      emit(SocialUploadPostImageErrorState());
     });
   }
 
@@ -297,17 +297,47 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   List<PostModel> post = [];
+  List<String> postId = [];
+  List<int> likes = [];
 
   void getPosts() {
     post = [];
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance.collection('posts').get().then((value) {
       value.docs.forEach((element) {
-        post.add(PostModel.fromJson(element.data()));
+        element.reference
+            .collection('likes')
+            .get()
+            .then((value)
+        {
+          likes.add(value.docs.length);
+          postId.add(element.id);
+          post.add(PostModel.fromJson(element.data()));
+          emit(GetNumberLikePostsSuccessState());
+        })
+            .catchError((error)
+        {
+          emit(GetNumberLikePostsErrorState(error.toString()));
+        });
       });
       emit(GetPostsSuccessState());
     }).catchError((error) {
       emit(GetPostsErrorState(error.toString()));
+    });
+  }
+
+  void likePost(String postId) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userModel!.uId)
+        .set({
+      'like': true,
+    }).then((value) {
+      emit(GetLikePostsSuccessState());
+    }).catchError((error) {
+      emit(GetLikePostsErrorState(error.toString()));
     });
   }
 }
