@@ -303,7 +303,10 @@ class HomeCubit extends Cubit<HomeStates> {
   void getPosts() {
     post = [];
     emit(GetPostsLoadingState());
-    FirebaseFirestore.instance.collection('posts').get().then((value) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .get()
+        .then((value) {
       value.docs.forEach((element) {
         element.reference
             .collection('likes')
