@@ -103,7 +103,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  /////////////////////////////////////////////////////////////////
+  // Get Profile Image
 
   File? profileImage;
   final picker = ImagePicker();
@@ -119,7 +119,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  ////////////////////////////////////////////////////////////////
+  // Get Cover Image
 
   File? coverImage;
 
@@ -134,7 +134,7 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  ////////////////////////////////////////////////////////////////
+  // Upload Profile Image
 
   void uploadProfileImage({
     required String name,
@@ -165,7 +165,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  ////////////////////////////////////////////////////////////////
+  // Upload Cover Image
 
   void uploadCoverImage({
     required String name,
@@ -194,7 +194,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  //////////////////////////////////////////////////////////////
+  // Update User
 
   void updateUser({
     required String name,
@@ -224,7 +224,8 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  ///////////////////////////////////////////////////////////////
+
+  // Posts
 
   File? postImage;
 
