@@ -347,6 +347,24 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
 
+  PostModel? postModel;
+
+  void deletePost(String postId)
+  {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .delete()
+        .then((value)
+    {
+      getPosts();
+      //emit(SocialRemovePostSuccessState());
+    }).catchError((error)
+    {
+      print(error.toString());
+      emit(SocialRemovePostErrorState(error.toString()));
+    });
+  }
 
 
 

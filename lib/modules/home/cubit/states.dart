@@ -85,11 +85,11 @@ class SocialUploadPostImageErrorState extends HomeStates{}
 
 class SocialRemovePostImage extends HomeStates{}
 
-class SocialUpdateLikePostSuccessState extends HomeStates{}
-class SocialUpdateLikePostErrorState extends HomeStates
+class SocialRemovePostSuccessState extends HomeStates{}
+class SocialRemovePostErrorState extends HomeStates
 {
   final String error;
 
-  SocialUpdateLikePostErrorState(this.error);
+  SocialRemovePostErrorState(this.error);
 }
 
