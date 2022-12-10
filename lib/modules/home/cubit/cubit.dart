@@ -321,6 +321,7 @@ class HomeCubit extends Cubit<HomeStates> {
         })
             .catchError((error)
         {
+          print(error.toString());
           emit(GetNumberLikePostsErrorState(error.toString()));
         });
       });
@@ -344,4 +345,9 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetLikePostsErrorState(error.toString()));
     });
   }
+
+
+
+
+
 }

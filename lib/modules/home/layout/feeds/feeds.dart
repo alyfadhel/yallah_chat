@@ -34,9 +34,9 @@ class FeedsScreen extends StatelessWidget {
                     child: Stack(
                       alignment: AlignmentDirectional.bottomEnd,
                       children: [
-                        const Image(
+                         Image(
                           image: NetworkImage(
-                            'https://img.freepik.com/free-photo/happy-stylish-man-casual-clothes-standing-cliff-mountain_158538-13995.jpg?w=900&t=st=1669645576~exp=1669646176~hmac=66ef74847bd76604b02e0d9774b4dff86e999ae204b8f79e6fc6cf73462b86d5',
+                            cubit.userModel!.cover,
                           ),
                           width: double.infinity,
                           height: AppSize.s250,
@@ -247,7 +247,7 @@ Widget buildPostItem(PostModel model,context,index)=>Card(
                           width: AppSize.s5,
                         ),
                         Text(
-                          '0',
+                          '${HomeCubit.get(context).likes[index]}',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
