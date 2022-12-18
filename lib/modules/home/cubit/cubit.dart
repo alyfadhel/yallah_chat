@@ -306,6 +306,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
+        .orderBy('dateTime')
         .get()
         .then((value) {
       value.docs.forEach((element) {
