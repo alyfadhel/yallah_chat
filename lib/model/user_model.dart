@@ -1,4 +1,4 @@
-class YallahChat {
+class UserModel {
   final String name;
   final String email;
   final String phone;
@@ -8,7 +8,7 @@ class YallahChat {
   final String bio;
   final bool isEmailVerified;
 
-  YallahChat({
+  UserModel({
     required this.name,
     required this.email,
     required this.phone,
@@ -19,8 +19,8 @@ class YallahChat {
     required this.isEmailVerified,
   });
 
-  factory YallahChat.fromJson(Map<String, dynamic> json) {
-    return YallahChat(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       name: json['name'],
       email: json['email'],
       phone: json['phone'],

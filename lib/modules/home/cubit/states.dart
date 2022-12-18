@@ -13,6 +13,17 @@ class GetHomeErrorState extends HomeStates
   GetHomeErrorState(this.error);
 }
 
+class GetAllUserLoadingState extends HomeStates{}
+
+class GetAllUserSuccessState extends HomeStates {}
+
+class GetAllUserErrorState extends HomeStates
+{
+  final String error;
+
+  GetAllUserErrorState(this.error);
+}
+
 class GetPostsLoadingState extends HomeStates{}
 
 class GetPostsSuccessState extends HomeStates {}

@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/utils/constance/constance.dart';
 import 'package:yallah_chat/model/post_model.dart';
-import 'package:yallah_chat/model/yalla_chat_model.dart';
+import 'package:yallah_chat/model/user_model.dart';
 import 'package:yallah_chat/modules/home/cubit/states.dart';
 import 'package:yallah_chat/modules/home/layout/chats/chats.dart';
 import 'package:yallah_chat/modules/home/layout/feeds/feeds.dart';
@@ -28,14 +28,14 @@ class HomeCubit extends Cubit<HomeStates> {
   var bioController = TextEditingController();
   var emailController = TextEditingController();
 
-  YallahChat? userModel;
+  UserModel? userModel;
 
   void getUserData() async {
     emit(GetHomeLoadingState());
 
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       print('Data : ${value.data()}');
-      userModel = YallahChat.fromJson(value.data()!);
+      userModel = UserModel.fromJson(value.data()!);
       emit(GetHomeSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -203,7 +203,7 @@ class HomeCubit extends Cubit<HomeStates> {
     String? image,
     String? cover,
   }) {
-    YallahChat model = YallahChat(
+    UserModel model = UserModel(
       name: name,
       email: userModel!.email,
       phone: phone,
@@ -223,7 +223,6 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(SocialUserUpdateErrorState());
     });
   }
-
 
   // Posts
 
@@ -310,18 +309,12 @@ class HomeCubit extends Cubit<HomeStates> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        element.reference
-            .collection('likes')
-            .get()
-            .then((value)
-        {
+        element.reference.collection('likes').get().then((value) {
           likes.add(value.docs.length);
           postId.add(element.id);
           post.add(PostModel.fromJson(element.data()));
           emit(GetNumberLikePostsSuccessState());
-        })
-            .catchError((error)
-        {
+        }).catchError((error) {
           print(error.toString());
           emit(GetNumberLikePostsErrorState(error.toString()));
         });
@@ -347,28 +340,38 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-
   PostModel? postModel;
 
-  void deletePost(String postId)
-  {
+  void deletePost(String postId) {
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
         .delete()
-        .then((value)
-    {
+        .then((value) {
       getPosts();
       //emit(SocialRemovePostSuccessState());
-    }).catchError((error)
-    {
+    }).catchError((error) {
       print(error.toString());
       emit(SocialRemovePostErrorState(error.toString()));
     });
   }
 
+  // Get All Users
 
+  List<UserModel> users = [];
 
-
-
+  void getAllUsers() {
+    emit(GetAllUserLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        users.add(UserModel.fromJson(element.data()));
+        emit(GetAllUserSuccessState());
+      });
+    }).catchError((error) {
+      emit(GetAllUserErrorState(error.toString()));
+    });
+  }
 }

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yallah_chat/model/yalla_chat_model.dart';
+import 'package:yallah_chat/model/user_model.dart';
 import 'package:yallah_chat/modules/register/cubit/states.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -54,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String phone,
     required String uId,
   }) async {
-    YallahChat model = YallahChat(
+    UserModel model = UserModel(
       name: name,
       email: email,
       phone: phone,
