@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yallah_chat/core/resources/color_manager.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/resources/values_manager.dart';
+import 'package:yallah_chat/core/utils/widgets/my_form_field.dart';
 import 'package:yallah_chat/model/user_model.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
@@ -89,6 +90,44 @@ class ChatDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   )
+              ),
+            ),
+            const Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey.withOpacity(.3),
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(
+                  AppSize.s20,
+                ),
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Type your message here ...'
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: AppSize.s50,
+                    color: ColorManager.blue,
+                    child: MaterialButton(
+                      onPressed: (){},
+                      minWidth: 1.0,
+                      child: const Icon(
+                        IconBroken.Send,
+
+                        color: ColorManager.sWhite,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
