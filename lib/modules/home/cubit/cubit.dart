@@ -24,12 +24,24 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
+  int currentIndex = 0;
+  File? profileImage;
+  final picker = ImagePicker();
+  File? coverImage;
+  File? postImage;
+  List<PostModel> post = [];
+  List<String> postId = [];
+  List<int> likes = [];
+  List<UserModel> users = [];
+  var textController = TextEditingController();
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var bioController = TextEditingController();
   var emailController = TextEditingController();
+  var messageController = TextEditingController();
 
   UserModel? userModel;
+  PostModel? postModel;
 
   void getUserData() async {
     emit(GetHomeLoadingState());
@@ -44,7 +56,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  int currentIndex = 0;
+
 
   List<BottomNavigationBarItem> items = [
     const BottomNavigationBarItem(
@@ -111,8 +123,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // Get Profile Image
 
-  File? profileImage;
-  final picker = ImagePicker();
+
 
   Future getIProfileImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -127,7 +138,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // Get Cover Image
 
-  File? coverImage;
+
 
   Future getCoverImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -232,7 +243,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // Posts
 
-  File? postImage;
+
 
   Future getPostImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -269,7 +280,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  var textController = TextEditingController();
+
 
   void createPost({
     required String dateTime,
@@ -302,9 +313,6 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(SocialRemovePostImage());
   }
 
-  List<PostModel> post = [];
-  List<String> postId = [];
-  List<int> likes = [];
 
   void getPosts() {
     post = [];
@@ -346,8 +354,6 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  PostModel? postModel;
-
   void deletePost(String postId) {
     FirebaseFirestore.instance
         .collection('posts')
@@ -363,9 +369,6 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   // Get All Users
-
-  List<UserModel> users = [];
-
   void getAllUsers() {
     users = [];
     emit(GetAllUserLoadingState());
@@ -409,6 +412,7 @@ class HomeCubit extends Cubit<HomeStates> {
     .add(model.toMap())
     .then((value)
     {
+      messageController.clear();
       emit(SocialSendMessageSuccessState());
     })
     .catchError((error)
@@ -425,6 +429,7 @@ class HomeCubit extends Cubit<HomeStates> {
         .add(model.toMap())
         .then((value)
     {
+      messageController.clear();
       emit(SocialSendMessageSuccessState());
     })
         .catchError((error)

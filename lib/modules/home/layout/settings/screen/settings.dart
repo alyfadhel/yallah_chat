@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yallah_chat/core/resources/color_manager.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/resources/values_manager.dart';
+import 'package:yallah_chat/core/utils/network/local.dart';
+import 'package:yallah_chat/core/utils/widgets/my_button.dart';
 import 'package:yallah_chat/modules/home/cubit/cubit.dart';
 import 'package:yallah_chat/modules/home/cubit/states.dart';
 import 'package:yallah_chat/modules/home/layout/settings/screen/edit_profile.dart';
+import 'package:yallah_chat/modules/login/screens/login.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -100,6 +104,29 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+                const SizedBox(
+                  height: AppSize.s20,
+                ),
+                MyButton(
+                  radius: 10,
+                    onPressedTextButton: ()
+                    {
+                      CacheHelper.signOut(key: 'uId')
+                          .then((value)
+                      {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      });
+                    },
+                    text: 'LogOut',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: ColorManager.sWhite
+                  ),
                 ),
               ],
             ),

@@ -17,62 +17,62 @@ class FeedsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return ConditionalBuilder(
-          condition: cubit.post.isNotEmpty,
-          builder: (context) => SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: AppSize.s8,
-                  ),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  elevation: AppSize.s5,
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    children: [
-                      Image(
-                        image: NetworkImage(
-                          cubit.userModel!.cover,
+          return ConditionalBuilder(
+            condition: cubit.post.isNotEmpty,
+            builder: (context) => SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: AppSize.s8,
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    elevation: AppSize.s5,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        Image(
+                          image: NetworkImage(
+                            cubit.userModel!.cover,
+                          ),
+                          width: double.infinity,
+                          height: AppSize.s250,
+                          fit: BoxFit.cover,
                         ),
-                        width: double.infinity,
-                        height: AppSize.s250,
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(AppPadding.p8),
-                        child: Text(
-                          'Communicate With Friends',
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    color: ColorManager.sWhite,
-                                  ),
+                        Padding(
+                          padding: const EdgeInsets.all(AppPadding.p8),
+                          child: Text(
+                            'Communicate With Friends',
+                            style:
+                            Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: ColorManager.sWhite,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      buildPostItem(cubit.post[index], context, index),
-                  separatorBuilder: (context, index) => const SizedBox(
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) =>
+                        buildPostItem(cubit.post[index], context, index),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: AppSize.s10,
+                    ),
+                    itemCount: cubit.post.length,
+                  ),
+                  const SizedBox(
                     height: AppSize.s10,
                   ),
-                  itemCount: cubit.post.length,
-                ),
-                const SizedBox(
-                  height: AppSize.s10,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          fallback: (context) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
+            fallback: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
       },
     );
   }
@@ -89,10 +89,11 @@ Widget buildPostItem(PostModel model, context, index) => Card(
           children: [
             Row(
               children: [
-                CircleAvatar(
+                 //if(HomeCubit.get(context).userModel!.uId != model.image )
+                const CircleAvatar(
                   radius: AppSize.s25,
                   backgroundImage: NetworkImage(
-                    HomeCubit.get(context).userModel!.image,
+                    'https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=826&t=st=1669708966~exp=1669709566~hmac=74456f1cd054400ff1d4a35fd0e68508832c79720a8b02f0d77a516a957a1bc0',
                   ),
                 ),
                 const SizedBox(
@@ -289,7 +290,10 @@ Widget buildPostItem(PostModel model, context, index) => Card(
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        HomeCubit.get(context).getPosts();
+                      },
                     ),
                   ),
                   Expanded(

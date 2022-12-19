@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeLayout(),
+                  builder: (context) => const LoginScreen(),
                 ),
                 (route) => false);
           }

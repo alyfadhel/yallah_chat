@@ -72,10 +72,12 @@ class NewPostScreen extends StatelessWidget {
                         const SizedBox(
                           width: AppSize.s15,
                         ),
-                        const Expanded(
+                         Expanded(
                           child: Text(
-                            'Ali Fadhel Hassan',
-                            style: TextStyle(height: 1.3),
+                            cubit.userModel!.name,
+                            style: const TextStyle(
+                                height: 1.3,
+                            ),
                           ),
                         ),
                       ],
