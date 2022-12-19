@@ -118,10 +118,3 @@ class SocialSendMessageErrorState extends HomeStates
 
 class SocialGetMessageSuccessState extends HomeStates{}
 
-class SocialGetMessageErrorState extends HomeStates
-{
-  final String error;
-
-  SocialGetMessageErrorState(this.error);
-}
-
