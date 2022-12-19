@@ -69,7 +69,9 @@ Widget buildChatItem(UserModel model,context) => InkWell(
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ChatDetailsScreen(),
+        builder: (context) => ChatDetailsScreen(
+          userModel: model,
+        ),
       ),
     );
   },
