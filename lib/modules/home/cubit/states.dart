@@ -106,3 +106,22 @@ class SocialRemovePostErrorState extends HomeStates
   SocialRemovePostErrorState(this.error);
 }
 
+// chat
+class SocialSendMessageSuccessState extends HomeStates{}
+
+class SocialSendMessageErrorState extends HomeStates
+{
+  final String error;
+
+  SocialSendMessageErrorState(this.error);
+}
+
+class SocialGetMessageSuccessState extends HomeStates{}
+
+class SocialGetMessageErrorState extends HomeStates
+{
+  final String error;
+
+  SocialGetMessageErrorState(this.error);
+}
+

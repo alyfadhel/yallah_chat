@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yallah_chat/core/resources/icon_broken.dart';
 import 'package:yallah_chat/core/utils/constance/constance.dart';
+import 'package:yallah_chat/model/message_model.dart';
 import 'package:yallah_chat/model/post_model.dart';
 import 'package:yallah_chat/model/user_model.dart';
 import 'package:yallah_chat/modules/home/cubit/states.dart';
@@ -381,6 +382,54 @@ class HomeCubit extends Cubit<HomeStates> {
       });
     }).catchError((error) {
       emit(GetAllUserErrorState(error.toString()));
+    });
+  }
+
+  // chat
+
+  void sendMessage({
+  required String receiverId,
+  required String text,
+  required String dateTime,
+})
+  {
+    MessageModel model = MessageModel(
+        senderId: userModel!.uId,
+        receiverId: receiverId,
+        dateTime: dateTime,
+        text: text,
+    );
+    // set my chats
+    FirebaseFirestore.instance
+    .collection('users')
+    .doc(userModel!.uId)
+    .collection('chats')
+    .doc(receiverId)
+    .collection('messages')
+    .add(model.toMap())
+    .then((value)
+    {
+      emit(SocialSendMessageSuccessState());
+    })
+    .catchError((error)
+    {
+      emit(SocialSendMessageErrorState(error.toString()));
+    });
+    // set receiver chats
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chats')
+        .doc(userModel!.uId)
+        .collection('messages')
+        .add(model.toMap())
+        .then((value)
+    {
+      emit(SocialSendMessageSuccessState());
+    })
+        .catchError((error)
+    {
+      emit(SocialSendMessageErrorState(error.toString()));
     });
   }
 
