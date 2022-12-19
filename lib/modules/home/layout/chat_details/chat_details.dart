@@ -50,7 +50,7 @@ class ChatDetailsScreen extends StatelessWidget {
               ),
             ),
             body: ConditionalBuilder(
-              condition: HomeCubit.get(context).messages.isNotEmpty,
+              condition: state is! SocialGetMessageLoadingState,
               builder: (context) => Padding(
                 padding: const EdgeInsets.all(AppPadding.p20),
                 child: Column(

@@ -13,10 +13,7 @@ import 'package:yallah_chat/modules/login/screens/login.dart';
 import 'package:yallah_chat/modules/register/cubit/cubit.dart';
 import 'package:yallah_chat/modules/register/cubit/states.dart';
 
-var nameController = TextEditingController();
-var emailController = TextEditingController();
-var phoneController = TextEditingController();
-var passwordController = TextEditingController();
+
 var formStateKey = GlobalKey<FormState>();
 
 class RegisterScreen extends StatelessWidget {
@@ -78,7 +75,7 @@ class RegisterScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: nameController,
+                          controller: cubit.nameController,
                           type: TextInputType.text,
                           label: 'name',
                           prefix: Icons.person_outline_outlined,
@@ -93,7 +90,7 @@ class RegisterScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: emailController,
+                          controller: cubit.emailController,
                           type: TextInputType.emailAddress,
                           label: 'email address',
                           prefix: Icons.email_outlined,
@@ -108,7 +105,7 @@ class RegisterScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: phoneController,
+                          controller: cubit.phoneController,
                           type: TextInputType.phone,
                           label: 'phone',
                           prefix: Icons.phone_android_outlined,
@@ -123,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: passwordController,
+                          controller: cubit.passwordController,
                           type: TextInputType.visiblePassword,
                           label: 'password',
                           prefix: Icons.lock_outline,
@@ -140,10 +137,10 @@ class RegisterScreen extends StatelessWidget {
                           },
                           onFieldSubmitted: (String value) {
                             cubit.registerUser(
-                              name: nameController.text,
-                              email: emailController.text,
-                              phone: phoneController.text,
-                              password: passwordController.text,
+                              name: cubit.nameController.text,
+                              email: cubit.emailController.text,
+                              phone: cubit.phoneController.text,
+                              password: cubit.passwordController.text,
                             );
                           },
                         ),
@@ -156,10 +153,10 @@ class RegisterScreen extends StatelessWidget {
                             onPressedTextButton: () {
                               if (formStateKey.currentState!.validate()) {
                                 cubit.registerUser(
-                                  name: nameController.text,
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  password: passwordController.text,
+                                  name: cubit.nameController.text,
+                                  email: cubit.emailController.text,
+                                  phone: cubit.phoneController.text,
+                                  password: cubit.passwordController.text,
                                 );
                               }
                             },

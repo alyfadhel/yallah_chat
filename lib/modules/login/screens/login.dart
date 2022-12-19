@@ -16,8 +16,7 @@ import 'package:yallah_chat/modules/login/cubit/cubit.dart';
 import 'package:yallah_chat/modules/login/cubit/states.dart';
 import 'package:yallah_chat/modules/register/screens/register.dart';
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
+
 var formKey = GlobalKey<FormState>();
 
 class LoginScreen extends StatelessWidget {
@@ -81,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: emailController,
+                          controller: cubit.emailController,
                           type: TextInputType.emailAddress,
                           label: 'email address',
                           prefix: Icons.email_outlined,
@@ -96,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                           height: AppSize.s20,
                         ),
                         MyFormField(
-                          controller: passwordController,
+                          controller: cubit.passwordController,
                           type: TextInputType.visiblePassword,
                           label: 'password',
                           prefix: Icons.lock_outline,
@@ -113,8 +112,8 @@ class LoginScreen extends StatelessWidget {
                           },
                           onFieldSubmitted: (String value) {
                             cubit.loginUser(
-                              email: emailController.text,
-                              password: passwordController.text,
+                              email: cubit.emailController.text,
+                              password: cubit.passwordController.text,
                             );
                           },
                         ),
@@ -127,8 +126,8 @@ class LoginScreen extends StatelessWidget {
                             onPressedTextButton: () {
                               if (formKey.currentState!.validate()) {
                                 cubit.loginUser(
-                                  email: emailController.text,
-                                  password: passwordController.text,
+                                  email: cubit.emailController.text,
+                                  password: cubit.passwordController.text,
                                 );
                               }
                             },

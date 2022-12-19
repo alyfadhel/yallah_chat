@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yallah_chat/modules/login/cubit/states.dart';
+import 'package:yallah_chat/modules/login/screens/login.dart';
 import 'package:yallah_chat/modules/register/cubit/states.dart';
 
 class LoginCubit extends Cubit<LoginStates>
@@ -11,6 +12,8 @@ class LoginCubit extends Cubit<LoginStates>
   LoginCubit(): super(InitialLoginState());
 
   static LoginCubit get(context)=>BlocProvider.of(context);
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   bool isPassword = true;
   IconData suffix = Icons.visibility_off_outlined;
@@ -34,6 +37,8 @@ class LoginCubit extends Cubit<LoginStates>
     {
       print(value.user!.email);
       print(value.user!.uid);
+      emailController.clear();
+      passwordController.clear();
       emit(GetLoginSuccessState(value.user!.uid));
     }).catchError((error)
     {

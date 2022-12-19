@@ -14,6 +14,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   bool isPassword = true;
   IconData suffix = Icons.visibility_off_outlined;
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
+  var passwordController = TextEditingController();
 
   void changePasswordRegisterVisibility() {
     isPassword = !isPassword;
@@ -43,6 +47,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
         phone: phone,
         uId: value.user!.uid,
       );
+      nameController.clear();
+      emailController.clear();
+      phoneController.clear();
+      passwordController.clear();
     }).catchError((error) {
       emit(GetRegisterErrorState(error.toString()));
     });

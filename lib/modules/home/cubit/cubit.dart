@@ -421,7 +421,7 @@ class HomeCubit extends Cubit<HomeStates> {
   void getMessages({
     required String receiverId,
   }) {
-    messages = [];
+    emit(SocialGetMessageLoadingState());
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)

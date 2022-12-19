@@ -116,5 +116,6 @@ class SocialSendMessageErrorState extends HomeStates
   SocialSendMessageErrorState(this.error);
 }
 
+class SocialGetMessageLoadingState extends HomeStates{}
 class SocialGetMessageSuccessState extends HomeStates{}
 
