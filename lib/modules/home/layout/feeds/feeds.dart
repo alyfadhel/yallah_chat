@@ -92,7 +92,7 @@ Widget buildPostItem(PostModel model, context, index) => Card(
                 CircleAvatar(
                   radius: AppSize.s25,
                   backgroundImage: NetworkImage(
-                    model.image,
+                    HomeCubit.get(context).userModel!.image,
                   ),
                 ),
                 const SizedBox(

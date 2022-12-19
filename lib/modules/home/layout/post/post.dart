@@ -62,17 +62,17 @@ class NewPostScreen extends StatelessWidget {
                         height: AppSize.s20,
                       ),
                     Row(
-                      children: const [
+                      children: [
                         CircleAvatar(
                           radius: AppSize.s25,
                           backgroundImage: NetworkImage(
-                            'https://img.freepik.com/free-photo/happy-young-woman-enjoying-vacation_158595-4298.jpg?w=740&t=st=1669649577~exp=1669650177~hmac=4801a6bc4b4eb5f3a1c41977500d06b07fd65f5afe76c34d8eaaabfe6aa11b69',
+                            cubit.userModel!.image,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: AppSize.s15,
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Text(
                             'Ali Fadhel Hassan',
                             style: TextStyle(height: 1.3),
@@ -156,7 +156,7 @@ class NewPostScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Expanded(
                           child: TextButton(
                             onPressed: () {},

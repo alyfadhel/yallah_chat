@@ -80,7 +80,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<Widget> screens = [
     const FeedsScreen(),
-    const ChatsScreen(),
+    const ChatScreen(),
     const NewPostScreen(),
     const UserScreen(),
     const SettingsScreen(),
@@ -95,6 +95,11 @@ class HomeCubit extends Cubit<HomeStates> {
   ];
 
   void changeBottomNav(int index) {
+    if(index == 1){
+      getAllUsers();
+    }else if(index == 3){
+      getAllUsers();
+    }
     if (index == 2) {
       emit(SocialNewPostState());
     } else {
@@ -361,6 +366,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<UserModel> users = [];
 
   void getAllUsers() {
+    users = [];
     emit(GetAllUserLoadingState());
     FirebaseFirestore.instance
         .collection('users')
@@ -374,4 +380,8 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetAllUserErrorState(error.toString()));
     });
   }
+
+
+
+
 }
