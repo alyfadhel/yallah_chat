@@ -122,7 +122,6 @@ class ChatDetailsScreen extends StatelessWidget {
                       minWidth: 1.0,
                       child: const Icon(
                         IconBroken.Send,
-
                         color: ColorManager.sWhite,
                       ),
                     ),
