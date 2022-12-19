@@ -373,7 +373,10 @@ class HomeCubit extends Cubit<HomeStates> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        users.add(UserModel.fromJson(element.data()));
+        //to show another user in chat
+        if(element.data()['uId'] != userModel!.uId) {
+          users.add(UserModel.fromJson(element.data()));
+        }
         emit(GetAllUserSuccessState());
       });
     }).catchError((error) {

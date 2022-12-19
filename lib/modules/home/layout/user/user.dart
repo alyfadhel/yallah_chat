@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yallah_chat/core/resources/color_manager.dart';
 import 'package:yallah_chat/core/resources/values_manager.dart';
+import 'package:yallah_chat/core/utils/widgets/toast_state.dart';
 import 'package:yallah_chat/model/user_model.dart';
 import 'package:yallah_chat/modules/home/cubit/cubit.dart';
 import 'package:yallah_chat/modules/home/cubit/states.dart';
@@ -16,24 +17,44 @@ class UserScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return ConditionalBuilder(
-          condition: cubit.users.isNotEmpty,
-          builder: (context) => ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => buildChatItem(
-                cubit.users[index]
-            ),
-            separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
-              child: Divider(
-                height: AppSize.s1,
-                color: ColorManager.grey,
+        if(cubit.users.isNotEmpty){
+          return ConditionalBuilder(
+            condition: cubit.users.isNotEmpty,
+            builder: (context) => ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) => buildChatItem(
+                  cubit.users[index]
               ),
+              separatorBuilder: (context, index) => const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
+                child: Divider(
+                  height: AppSize.s1,
+                  color: ColorManager.grey,
+                ),
+              ),
+              itemCount: cubit.users.length,
             ),
-            itemCount: cubit.users.length,
-          ),
-          fallback: (context) => const Center(
-            child: CircularProgressIndicator(),
+            fallback: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'No Users Currently',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: Colors.grey[400]
+                ),
+              ),
+              Icon(
+                Icons.menu,
+                size: 100.0,
+                color: Colors.grey[400],
+              ),
+            ],
           ),
         );
       },

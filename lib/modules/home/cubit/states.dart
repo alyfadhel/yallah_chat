@@ -1,3 +1,5 @@
+import 'package:yallah_chat/model/user_model.dart';
+
 abstract class HomeStates{}
 
 class InitialHomeState extends HomeStates{}
