@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yallah_chat/core/resources/color_manager.dart';
@@ -107,6 +108,37 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: AppSize.s20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: ()
+                        {
+                          //FCM subscribeToTopic
+                          FirebaseMessaging.instance.subscribeToTopic('announcements');
+                        },
+                        child: const Text(
+                            'Subscribe'
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: AppSize.s10,
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: ()
+                        {
+                          //FCM unsubscribeFromTopic
+                          FirebaseMessaging.instance.unsubscribeFromTopic('announcements');
+                        },
+                        child: const Text(
+                            'Unsubscribe'
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 MyButton(
                   radius: 10,
